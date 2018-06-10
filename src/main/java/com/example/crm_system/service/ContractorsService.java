@@ -18,4 +18,9 @@ public class ContractorsService {
     public Contractors addContractor(Contractors contractors){
         return contractorsRepository.save(contractors);
     }
+
+    public void updateContractor(Contractors contractors){
+        contractorsRepository.updateContractor(contractors.getId(), contractors.getPhone(),
+                contractors.getEmail(), contractors.getAssignedTo());
+    }
 }
