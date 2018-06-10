@@ -20,9 +20,6 @@
 </div>
 <div class="container">
     <form th:action="@{/addUser}" method="post" th:object="${user}">
-        <label>Nick</label>
-        <input type="text" id="nick" th:field="*{nick}" name="nick"
-               class="form-control"/><br/>
         <label>Email</label>
         <input type="text" id="email" name="email" th:field="*{email}"
                class="form-control"/><br/>
@@ -33,6 +30,12 @@
         <input type="password" id="password2" name="password2"/><br/>
         <label th:if="${#fields.hasErrors('password')}"
                th:errors="*{password}" class="validation-message"></label><br/>
+        <label>Rola</label>
+        <select>
+            <option>Opcja 1</option>
+            <option>Opcja 2</option>
+            <option>Opcja 3</option>
+        </select>
         <button class="btn btn-lg" name="Submit" value="addUser" th:text="Dodaj"></button>
     </form>
     <div class="alert alert-success" th:text="${successMessage}"></div>
