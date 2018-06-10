@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -37,7 +38,7 @@ public class Contractors {
     private String email;
     private String fax;
     private String assignedTo;
-    private Date dateCreated;
-    private Date dateModified;
+    private Timestamp dateCreated;
+    private Timestamp dateModified;
 
 }

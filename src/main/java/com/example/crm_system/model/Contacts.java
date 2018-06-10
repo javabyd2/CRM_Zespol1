@@ -1,5 +1,6 @@
 package com.example.crm_system.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 @Data
 @Builder
@@ -21,20 +22,24 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Task {
+public class Contacts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Timestamp startDate;
-    private Timestamp dueDate;
-    private String priority;
-    private String status;
-    private String popupReminder;
-    private String emailReminder;
-    private String assignedTo;
+    private String title;
+    private String department;
+    private String contractorName;
+    private String mobile;
+    private String mail;
+    private String typeOfContact;
+    private String primaryAddress;
+    private String alternateAddress;
+    private String officePhone;
+    private String fax;
     private String description;
-    private Timestamp dateCreated;
-    private Timestamp dateModified;
+    private String assignedTo;
+    private Timestamp dataModified;
+    private Timestamp dataCreated;
 }

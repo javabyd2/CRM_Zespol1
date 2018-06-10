@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -31,7 +32,7 @@ public class Offer {
     private String contractorName;
     private Long purchaseOrderNumber;
     private String paymentsTerm;
-    private Date validUntil;
+    private Timestamp validUntil;
     private String description;
     private String billingAccountName;
     private String billingAccountAdress;
@@ -42,5 +43,7 @@ public class Offer {
     private BigDecimal totalTax;
     private BigDecimal shippingCost;
     private BigDecimal grandTotal;
+    private Timestamp dateCreated;
+    private Timestamp dateModified;
 
 }

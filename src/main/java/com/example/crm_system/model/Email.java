@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -34,7 +35,7 @@ public class Email {
     private String cC;
     private String assignedTo;
     private String text;
-    private Date sendDate;
+    private Timestamp sendDate;
     private File attachment;
 
 }

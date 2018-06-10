@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -29,4 +30,6 @@ public class Note {
     private String description;
     private String contact;
     private String assignedTo;
+    private Timestamp dateCreated;
+    private Timestamp dateModified;
 }

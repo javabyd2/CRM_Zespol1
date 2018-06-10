@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -26,16 +27,16 @@ public class Meetings {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date startDate;
-    private Date endDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
     private String repeatType;
     private String location;
     private String assignedTo;
     private String popupReminder;
     private String emailReminder;
     private String description;
-    private Date dateCreated;
-    private Date dateModified;
+    private Timestamp dateCreated;
+    private Timestamp dateModified;
 
 
 }
