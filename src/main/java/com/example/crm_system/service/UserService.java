@@ -11,19 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
-    @Autowired
+
     private static final String DEFAULT_ROLE = "ROLE_USER";
     private UserRepository userRepository;
     private UserRoleRepository roleRepository;
 
-
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserRoleRepository roleRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setRoleRepository(UserRoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -33,5 +28,9 @@ public class UserService {
         user.getRoles().add(defaultRole);
         userRepository.save(user);
         return user;
+    }
+
+    public void delete(User user){
+        userRepository.delete(user);
     }
 }
