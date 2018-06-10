@@ -17,6 +17,6 @@ public class Controller {
     }
     @PostMapping(value = "/user")
     public User addUser(User user){
-        return userService.save(user);
+        return userService.addWithDefaultRole(user);
     }
 }

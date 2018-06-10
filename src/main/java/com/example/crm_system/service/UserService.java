@@ -28,9 +28,10 @@ public class UserService {
     }
 
     @Transactional
-    public void addWithDefaultRole(User user) {
+    public User addWithDefaultRole(User user) {
         UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
         user.getRoles().add(defaultRole);
         userRepository.save(user);
+        return user;
     }
 }
