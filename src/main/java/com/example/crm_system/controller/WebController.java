@@ -23,18 +23,19 @@ public class WebController {
     }
 
     @GetMapping(value = "/addUser")
-    public ModelAndView register(){
+    public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("addUser");
         return modelAndView;
     }
+
     @PostMapping(value = "addUser")
-    public ModelAndView addUser(User user, BindingResult bindingResult){
+    public ModelAndView addUser(User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
-        }else {
+        } else {
             userService.save(user);
             modelAndView.addObject("successMessage", "Dodano użytkownika");
         }
