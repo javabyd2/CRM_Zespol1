@@ -23,7 +23,7 @@ public class WebController {
     }
 
     @GetMapping(value = "/addUser")
-    public ModelAndView register() {
+    public ModelAndView addUser() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("addUser");
@@ -31,7 +31,7 @@ public class WebController {
     }
 
     @PostMapping(value = "addUser")
-    public ModelAndView addUser(User user, BindingResult bindingResult) {
+    public ModelAndView saveUser(User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
