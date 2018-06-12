@@ -36,7 +36,7 @@ public class WebController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
         } else {
-            userService.addWithDefaultRole(user);
+            userService.saveUser(user);
             modelAndView.addObject("successMessage", "Dodano użytkownika");
         }
         modelAndView.setViewName("addUser");
