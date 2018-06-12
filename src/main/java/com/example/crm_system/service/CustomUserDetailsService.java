@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.example.crm_system.model.User;
-import com.example.crm_system.model.UserRole;
+import com.example.crm_system.model.Role;
 import com.example.crm_system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,9 +36,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userDetails;
     }
 
-    private Set<GrantedAuthority> convertAuthorities(Set<UserRole> userRoles) {
+    private Set<GrantedAuthority> convertAuthorities(Set<Role> userRoles) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        for(UserRole ur: userRoles) {
+        for(Role ur: userRoles) {
             authorities.add(new SimpleGrantedAuthority(ur.getRole()));
         }
         return authorities;
