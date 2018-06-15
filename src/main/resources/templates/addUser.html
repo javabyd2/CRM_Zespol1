@@ -27,15 +27,16 @@
         <input type="password" id="password" name="password" th:field="*{password}"
                class="form-control"/><br/>
         <label>Powtórz hasło</label>
-        <input type="password" id="password2" name="password2"/><br/>
+        <input type="password" id="password2" name="password2"
+               class="form-control"/><br/>
         <label th:if="${#fields.hasErrors('password')}"
-               th:errors="*{password}" class="validation-message"></label><br/>
-        <label>Rola</label>
+               th:errors="*{password}" class="validation-message"></label>
+        <label>Rola</label></br>
         <select>
             <option>Opcja 1</option>
             <option>Opcja 2</option>
             <option>Opcja 3</option>
-        </select>
+        </select><br/>
         <button class="btn btn-lg" name="Submit" value="addUser" th:text="Dodaj"></button>
     </form>
     <div class="alert alert-success" th:text="${successMessage}"></div>
