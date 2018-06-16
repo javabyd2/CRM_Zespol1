@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Data
 @Builder

@@ -12,7 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 @Data
 @Builder
@@ -27,7 +27,7 @@ public class Sms {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String from;
+    private String sender;
     private String text;
     private Timestamp sendTime;
 }
