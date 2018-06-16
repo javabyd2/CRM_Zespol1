@@ -27,7 +27,16 @@ public class Sms {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+<<<<<<< HEAD
     private String sender;
+=======
+    /*
+     * TODO: PILNE!!!!
+     * Zmieńcie nazwę tego pola. Słowo "from" jest słowek kluczowym SQL i zawsze będzie powodować problemy z tworzeniem tabelki.
+     * Nie znam logiki biznesowej dla tego nie poprawiam tego pola sam.
+     */
+    private String from;
+>>>>>>> fd3c34e8a775b0d8eaf75f2268ac6b21e7c3fb58
     private String text;
     private Timestamp sendTime;
 }
