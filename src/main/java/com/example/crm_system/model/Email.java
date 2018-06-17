@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.File;
 import java.sql.Timestamp;
 
@@ -21,20 +18,23 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
+@Table(name = "email")
 public class Email {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "email_id")
     private Long id;
 
     private String subject;
-    private String from;
-    private String to;
+    private String odKogo; // TODO: To ja - Adrian
+    private String doKogo; // TODO: To ja - Adrian
     private String cC;
     private String assignedTo;
     private String text;
     private Timestamp sendDate;
-    private File attachment;
+    private String attachment;
 
 }
