@@ -12,7 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 @Data
 @Builder
@@ -27,12 +27,8 @@ public class Sms {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    /*
-     * TODO: PILNE!!!!
-     * Zmieńcie nazwę tego pola. Słowo "from" jest słowek kluczowym SQL i zawsze będzie powodować problemy z tworzeniem tabelki.
-     * Nie znam logiki biznesowej dla tego nie poprawiam tego pola sam.
-     */
-    private String from;
+
+    private String sender;
     private String text;
     private Timestamp sendTime;
 }
