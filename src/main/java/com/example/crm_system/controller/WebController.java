@@ -2,6 +2,7 @@ package com.example.crm_system.controller;
 
 import com.example.crm_system.model.Contractors;
 import com.example.crm_system.model.User;
+import com.example.crm_system.service.ContractorsService;
 import com.example.crm_system.service.HibernateSearchService;
 import com.example.crm_system.service.UserService;
 import lombok.extern.java.Log;
@@ -9,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -53,7 +52,7 @@ public class WebController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/search")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@RequestParam(value = "search", required = false) String q, Model model) {
         List<Contractors> searchResults = null;
         try {
