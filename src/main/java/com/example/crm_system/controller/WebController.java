@@ -3,7 +3,7 @@ package com.example.crm_system.controller;
 import com.example.crm_system.model.Contractors;
 import com.example.crm_system.model.User;
 import com.example.crm_system.service.HibernateSearchService;
-import com.example.crm_system.service.UserService;
+import com.example.crm_system.service.UserServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +23,11 @@ import java.util.List;
 @Log
 public class WebController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private HibernateSearchService searchService;
 
     @Autowired
-    public WebController(UserService userService, HibernateSearchService searchService) {
+    public WebController(UserServiceImpl userService, HibernateSearchService searchService) {
         this.userService = userService;
         this.searchService = searchService;
     }
@@ -46,8 +46,8 @@ public class WebController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
         } else {
-            userService.saveUser(user);
-            modelAndView.addObject("successMessage", "Dodano użytkownika");
+            userService.addContributor(user);
+            modelAndView.addObject("successMessage", "New user added");
         }
         modelAndView.setViewName("addUser");
         return modelAndView;
