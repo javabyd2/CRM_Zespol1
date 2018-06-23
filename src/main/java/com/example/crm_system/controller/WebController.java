@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.*;
+=======
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+>>>>>>> d612e4b68dfc7fcfeb421535e320a6c80e553cbc
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -61,7 +65,7 @@ public class WebController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/search")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@RequestParam(value = "search", required = false) String q, Model model) {
         List<Contractors> searchResults = null;
         try {
