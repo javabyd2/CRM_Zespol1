@@ -64,7 +64,7 @@ public class Contractors {
     @OneToMany(mappedBy = "contractorsContacts", cascade = CascadeType.ALL)
     private Set<Contacts> contractorsContacts;
 
-    @OneToMany(mappedBy = "contractorOffer", cascade = CascadeType.ALL)
-    private Set<Offer> contractorsOffer;
+    @OneToMany(mappedBy = "contractorsOffer", cascade = CascadeType.ALL)
+    private Set<Contractors> contractorsOffer;
 
 }

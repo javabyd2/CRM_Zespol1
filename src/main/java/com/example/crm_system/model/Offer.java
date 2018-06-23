@@ -49,6 +49,6 @@ public class Offer {
     private Timestamp dateModified;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    private Contracts contractOffer;
+    private Contractors contractorsOffer;
 
 }
