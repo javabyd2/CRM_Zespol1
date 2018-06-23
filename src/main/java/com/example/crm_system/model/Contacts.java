@@ -62,4 +62,7 @@ public class Contacts {
 
     @OneToMany(mappedBy = "contactsMeetings", cascade = CascadeType.ALL)
     private Set<Contacts> contactsMeetings;
+
+    @OneToMany(mappedBy = "contactsNote", cascade = CascadeType.ALL)
+    private Set<Contacts> contactsNote;
 }
