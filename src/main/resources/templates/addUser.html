@@ -16,28 +16,34 @@
 </head>
 <body>
 <div class="jumbotron">
-    <h2>Dodawanie użytkownika</h2>
+    <h2>Add user</h2>
 </div>
 <div class="container">
     <form th:action="@{/addUser}" method="post" th:object="${user}">
+        <label>Name</label>
+        <input type="text" id="name" name="name" th:field="*{name}"
+               class="form-control"/><br/>
+        <label>Lastname</label>
+        <input type="text" id="lastName" name="lastName" th:field="*{lastName}"
+               class="form-control"/><br/>
         <label>Email</label>
         <input type="text" id="email" name="email" th:field="*{email}"
                class="form-control"/><br/>
-        <label>Hasło</label>
+        <label>Password</label>
         <input type="password" id="password" name="password" th:field="*{password}"
                class="form-control"/><br/>
-        <label>Powtórz hasło</label>
+        <label>Repeat password</label>
         <input type="password" id="password2" name="password2"
                class="form-control"/><br/>
         <label th:if="${#fields.hasErrors('password')}"
                th:errors="*{password}" class="validation-message"></label>
-        <label>Rola</label></br>
+        <label>Role</label></br>
         <select>
-            <option>Opcja 1</option>
-            <option>Opcja 2</option>
-            <option>Opcja 3</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
         </select><br/>
-        <button class="btn btn-lg" name="Submit" value="addUser" th:text="Dodaj"></button>
+        <button class="btn btn-lg" name="Submit" value="addUser" th:text="Add"></button>
     </form>
     <div class="alert alert-success" th:text="${successMessage}"></div>
 </div>
