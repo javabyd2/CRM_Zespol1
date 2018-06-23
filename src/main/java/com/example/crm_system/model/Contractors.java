@@ -8,11 +8,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.search.annotations.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * The annotation Indexed marks Contractors as an entity which needs to be indexed by
@@ -29,6 +33,7 @@ public class Contractors {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "contractors_id")
     private Long id;
     @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String name;
@@ -54,5 +59,8 @@ public class Contractors {
     private Timestamp dateCreated;
     @Field
     private Timestamp dateModified;
+
+    @OneToMany(mappedBy = "contractors", cascade = CascadeType.ALL)
+    private Set<Contacts> contacts;
 
 }
