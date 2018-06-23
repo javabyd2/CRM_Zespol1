@@ -2,11 +2,9 @@ package com.example.crm_system.controller;
 
 import com.example.crm_system.model.Contractors;
 import com.example.crm_system.model.Note;
+import com.example.crm_system.model.Task;
 import com.example.crm_system.model.User;
-import com.example.crm_system.service.ContractorsService;
-import com.example.crm_system.service.HibernateSearchService;
-import com.example.crm_system.service.NoteService;
-import com.example.crm_system.service.UserServiceImpl;
+import com.example.crm_system.service.*;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,16 +35,18 @@ public class WebController {
     private final UserServiceImpl userService;
     private HibernateSearchService searchService;
     private NoteService noteService;
+    private TaskService taskService;
 
     private ContractorsService contractorsService;
 
     @Autowired
     public WebController(UserServiceImpl userService, HibernateSearchService searchService,
-                         ContractorsService contractorsService, NoteService noteService) {
+                         ContractorsService contractorsService, NoteService noteService, TaskService taskService) {
         this.userService = userService;
         this.searchService = searchService;
         this.contractorsService = contractorsService;
         this.noteService = noteService;
+        this.taskService = taskService;
     }
 
     @GetMapping(value = "/addUser")
@@ -79,12 +80,12 @@ public class WebController {
 
             log.info("Starting up search..." + ex.toString());
 
-        }finally {
-            if(searchResults!=null){
+        } finally {
+            if (searchResults != null) {
                 int size = searchResults.size();
                 model.addAttribute("resultsFound", "Results found: " + size);
                 log.info("Search results: " + size);
-           }
+            }
         }
         model.addAttribute("search", searchResults);
         return "search";
@@ -104,13 +105,15 @@ public class WebController {
         modelAndView.addObject("contractors", new Contractors());
         return modelAndView;
     }
+
     @GetMapping(value = "/addNote")
-    public ModelAndView addNote(){
+    public ModelAndView addNote() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("note", new Note());
         modelAndView.setViewName("addNote");
         return modelAndView;
     }
+
     @PostMapping(value = "addNote")
     public ModelAndView saveNote(Note note, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
@@ -121,6 +124,38 @@ public class WebController {
             modelAndView.addObject("successMessage", "New note added");
         }
         modelAndView.setViewName("addNote");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/showScheduledTasks")
+    public ModelAndView showScheduledTasks() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("taskList", taskService.getTasks());
+        modelAndView.setViewName("showScheduledTasks");
+        return modelAndView;
+    }
+
+
+    @GetMapping(value = "/addNewPhoneToTasks")
+    public ModelAndView addNewPhoneToTasks() {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("task", new Task());
+        modelAndView.setViewName("addNewPhoneToTasks");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "addNewPhoneToTasks")
+    public ModelAndView saveNewPhoneToTasks(Task task, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("addNewPhoneToTasks");
+        } else {
+            taskService.saveTask(task);
+            modelAndView.addObject("successMessage", "New phone to tasks added");
+        }
+        modelAndView.setViewName("addNewPhoneToTasks");
         return modelAndView;
     }
 }

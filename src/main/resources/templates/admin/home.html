@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
 
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <!--------------------------------------------------------------------------------------->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#box").load("test-content.html");
+            });
+        });
+    </script>
+    <!--------------------------------------------------------------------------------------->
+
     <style>
         .validation-message {
             color: red;
@@ -72,7 +85,7 @@
         </div>
 
         <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/home}" th:object="${search}">
-            <label for="search">Search:</label> <input name="search"
+            <label for="search">   </label> <input name="search"
                                                        id="search">
             </input>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -101,11 +114,6 @@
                 </table>
             </div>
         </form>
-
-        <!--<form class="form-inline my-2 my-lg-0">-->
-        <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-        <!--</form>-->
     </div>
 </nav>
 
@@ -158,16 +166,25 @@
                 </div>
             </div>
         </div>
+
+        <!--------------------------------------------------------------------------------------->
         <div class="col-sm">
-            khglhjvkjvjhgvjhvj
+            <!--<div id="box">-->
+                <!--<h2>Click button to load new content inside DIV box</h2>-->
+            <!--</div>-->
+            <!--<button type="button">Load Content</button>-->
         </div>
-        <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Info card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
+        <!--------------------------------------------------------------------------------------->
+
+        <div class="col-sm">
+            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h5 class="card-title">Info card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -208,10 +225,12 @@
             </div>
         </div>
     </div>
-
 </div>
 
-
+<div id="box">
+    <h2>Click button to load new content inside DIV box</h2>
+</div>
+<button type="button">Load Content</button>
 
 </body>
 </html>
