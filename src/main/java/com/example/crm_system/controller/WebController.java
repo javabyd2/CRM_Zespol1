@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -48,10 +49,10 @@ public class WebController {
     }
 
     @PostMapping(value = "addUser")
-    public ModelAndView saveUser(User user, BindingResult bindingResult) {
+    public ModelAndView saveUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("register");
+            modelAndView.setViewName("addUser");
         } else {
             userService.addContributor(user);
             modelAndView.addObject("successMessage", "New user added");
