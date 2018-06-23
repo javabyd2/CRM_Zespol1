@@ -3,12 +3,14 @@
       xmlns:th="http://www.thymeleaf.org"
       lang="pl">
 <head>
+    <meta charset="UTF-8">
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
     <style>
         .validation-message {
             color: red;
@@ -20,7 +22,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form th:action="@{/addNote}" method="post" th:object="${note}" class="form-horizontal"
+            <form th:action="@{/addNewPhoneToTasks}" method="post" th:object="${task}" class="form-horizontal"
                   role="form">
                 <h2>New Note Form</h2>
                 <div class="form-group">
@@ -34,16 +36,42 @@
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-                               class="validation-message"></label>
-                        <textarea th:field="*{description}" placeholder="Description"
-                                  class="form-control"rows="4" cols="50"></textarea>
+                        <label th:if="${#fields.hasErrors('type')}" th:errors="*{type}"
+                               class="mr-sm-2" id="typeOfTask"></label>
+                        <select class="custom-select mr-sm-2" th:field="*{type}">
+                            <option th:value="phone">Phone</option>
+                            <option th:value="meeting">Meeting</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Add new note</button>
+                        <label th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}"
+                               class="mr-sm-2" id="priorityOfTask"></label>
+                        <select class="custom-select mr-sm-2" th:field="*{priority}">
+                            <option th:value="low">Low</option>
+                            <option th:value="normal">Normal</option>
+                            <option th:value="hight">Hight</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--TODO: Dodać datę wykonania zaplanowanego telefonu i datę przypomnienia!-->
+
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                               class="validation-message"></label>
+                        <textarea th:field="*{description}" placeholder="Description"
+                                  class="form-control" rows="4" cols="50"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Add new phone do tasks</button>
                     </div>
                 </div>
             </form>

@@ -26,10 +26,12 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String subject;
     private Timestamp startDate;
     private Timestamp dueDate;
     private String priority;
     private String status;
+    private String type;
     private String popupReminder;
     private String emailReminder;
     private String assignedTo;
