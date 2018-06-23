@@ -8,11 +8,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
+import java.util.Set;
 
 
 @Data
@@ -26,6 +32,7 @@ public class Contacts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "contacts_id")
     private Long id;
 
     private String title;
@@ -42,4 +49,20 @@ public class Contacts {
     private String assignedTo;
     private Timestamp dataModified;
     private Timestamp dataCreated;
+
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Contractors contractors;
+
+    @OneToMany(mappedBy = "contactsCalls", cascade = CascadeType.ALL)
+    private Set<Contacts> contactsCalls;
+
+    @OneToMany(mappedBy = "contactsEmail", cascade = CascadeType.ALL)
+    private Set<Contacts> contactsEmail;
+
+    @OneToMany(mappedBy = "contactsMeetings", cascade = CascadeType.ALL)
+    private Set<Contacts> contactsMeetings;
+
+    @OneToMany(mappedBy = "contactsNote", cascade = CascadeType.ALL)
+    private Set<Contacts> contactsNote;
 }

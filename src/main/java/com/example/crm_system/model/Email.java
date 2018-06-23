@@ -37,4 +37,7 @@ public class Email {
     private Timestamp sendDate;
     private String attachment;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Contacts contactsEmail;
+
 }
