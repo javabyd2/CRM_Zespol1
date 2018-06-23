@@ -5,6 +5,7 @@ import com.example.crm_system.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -18,6 +19,7 @@ public class NoteService {
     }
 
     public Note saveNote(Note note){
+        note.setDateCreated(new Timestamp(System.currentTimeMillis()));
         return noteRepository.save(note);
     }
 
