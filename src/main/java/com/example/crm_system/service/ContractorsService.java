@@ -5,6 +5,9 @@ import com.example.crm_system.repository.ContractorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ContractorsService {
 
@@ -15,12 +18,20 @@ public class ContractorsService {
         this.contractorsRepository = contractorsRepository;
     }
 
-    public Contractors addContractor(Contractors contractors){
-        return contractorsRepository.save(contractors);
+    public List<Contractors> getContractors() {
+        return contractorsRepository.findAll();
+    }
+
+    public Optional<Contractors> getContractorsById(Long id) {
+        return contractorsRepository.findById(id);
     }
 
     public void updateContractor(Contractors contractors){
         contractorsRepository.updateContractor(contractors.getId(), contractors.getPhone(),
                 contractors.getEmail(), contractors.getAssignedTo());
+    }
+
+    public Contractors save (Contractors contractors) {
+        return contractorsRepository.save(contractors);
     }
 }

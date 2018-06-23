@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
+<<<<<<< HEAD
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+=======
+import javax.persistence.*;
+>>>>>>> refs/remotes/origin/master
 import java.sql.Timestamp;
 import java.util.Set;
 
