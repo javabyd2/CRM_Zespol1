@@ -6,11 +6,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.internal.util.Contracts;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -44,5 +47,8 @@ public class Offer {
     private BigDecimal grandTotal;
     private Timestamp dateCreated;
     private Timestamp dateModified;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Contracts contractOffer;
 
 }
