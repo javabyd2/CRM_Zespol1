@@ -30,4 +30,8 @@ public class NoteService {
     public Note getNoteById(Long id){
         return noteRepository.findById(id).get();
     }
+
+    public void deleteNote(Long id){
+        noteRepository.delete(getNoteById(id));
+    }
 }
