@@ -15,37 +15,58 @@
     </style>
 </head>
 <body>
-<div class="jumbotron">
-    <h2>Add user</h2>
-</div>
-<div class="container">
-    <form th:action="@{/addUser}" method="post" th:object="${user}">
-        <label>Name</label>
-        <input type="text" id="name" name="name" th:field="*{name}"
-               class="form-control"/><br/>
-        <label>Lastname</label>
-        <input type="text" id="lastName" name="lastName" th:field="*{lastName}"
-               class="form-control"/><br/>
-        <label>Email</label>
-        <input type="text" id="email" name="email" th:field="*{email}"
-               class="form-control"/><br/>
-        <label>Password</label>
-        <input type="password" id="password" name="password" th:field="*{password}"
-               class="form-control"/><br/>
-        <label>Repeat password</label>
-        <input type="password" id="password2" name="password2"
-               class="form-control"/><br/>
-        <label th:if="${#fields.hasErrors('password')}"
-               th:errors="*{password}" class="validation-message"></label>
-        <label>Role</label></br>
-        <select>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-        </select><br/>
-        <button class="btn btn-lg" name="Submit" value="addUser" th:text="Add"></button>
-    </form>
-    <div class="alert alert-success" th:text="${successMessage}"></div>
-</div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form th:action="@{/addUser}" method="post" th:object="${user}" class="form-horizontal"
+                      role="form">
+                    <h2>New User Form</h2>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{name}" placeholder="Name"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{lastName}" placeholder="Lastname"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{email}" placeholder="Email"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                               class="validation-message"></label>
+                        <input type="password" th:field="*{password}" placeholder="Password"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Add new user</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <span th:utext="${successMessage}"></span>
+    </div>
+
 </body>
 </html>

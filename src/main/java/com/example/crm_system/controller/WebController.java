@@ -1,22 +1,29 @@
 package com.example.crm_system.controller;
 
 import com.example.crm_system.model.Contractors;
+import com.example.crm_system.model.Note;
 import com.example.crm_system.model.User;
 import com.example.crm_system.service.ContractorsService;
 import com.example.crm_system.service.HibernateSearchService;
+import com.example.crm_system.service.NoteService;
 import com.example.crm_system.service.UserServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -28,15 +35,17 @@ public class WebController {
 
     private final UserServiceImpl userService;
     private HibernateSearchService searchService;
-
+    private NoteService noteService;
 
     private ContractorsService contractorsService;
 
     @Autowired
-    public WebController(UserServiceImpl userService, HibernateSearchService searchService, ContractorsService contractorsService) {
+    public WebController(UserServiceImpl userService, HibernateSearchService searchService,
+                         ContractorsService contractorsService, NoteService noteService) {
         this.userService = userService;
         this.searchService = searchService;
         this.contractorsService = contractorsService;
+        this.noteService = noteService;
     }
 
     @GetMapping(value = "/addUser")
@@ -48,10 +57,10 @@ public class WebController {
     }
 
     @PostMapping(value = "addUser")
-    public ModelAndView saveUser(User user, BindingResult bindingResult) {
+    public ModelAndView saveUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("register");
+            modelAndView.setViewName("addUser");
         } else {
             userService.addContributor(user);
             modelAndView.addObject("successMessage", "New user added");
@@ -93,6 +102,25 @@ public class WebController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("addNewContractorsForm");
         modelAndView.addObject("contractors", new Contractors());
+        return modelAndView;
+    }
+    @GetMapping(value = "/addNote")
+    public ModelAndView addNote(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("note", new Note());
+        modelAndView.setViewName("addNote");
+        return modelAndView;
+    }
+    @PostMapping(value = "addNote")
+    public ModelAndView saveNote(Note note, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("addNote");
+        } else {
+            noteService.saveNote(note);
+            modelAndView.addObject("successMessage", "New note added");
+        }
+        modelAndView.setViewName("addNote");
         return modelAndView;
     }
 }
