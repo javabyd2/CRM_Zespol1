@@ -52,7 +52,7 @@ public class Contacts {
 
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    private Contractors contractors;
+    private Contractors contractorsContacts;
 
     @OneToMany(mappedBy = "contactsCalls", cascade = CascadeType.ALL)
     private Set<Contacts> contactsCalls;
@@ -65,4 +65,10 @@ public class Contacts {
 
     @OneToMany(mappedBy = "contactsNote", cascade = CascadeType.ALL)
     private Set<Contacts> contactsNote;
+
+    @OneToMany(mappedBy = "contactsSms", cascade = CascadeType.ALL)
+    private Set<Contacts> contactsSms;
+
+    @OneToMany(mappedBy = "contactsTask", cascade = CascadeType.ALL)
+    private Set<Contacts> contactsTask;
 }

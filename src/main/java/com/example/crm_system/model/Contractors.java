@@ -61,7 +61,10 @@ public class Contractors {
     @Field
     private Timestamp dateModified;
 
-    @OneToMany(mappedBy = "contractors", cascade = CascadeType.ALL)
-    private Set<Contacts> contacts;
+    @OneToMany(mappedBy = "contractorsContacts", cascade = CascadeType.ALL)
+    private Set<Contacts> contractorsContacts;
+
+    @OneToMany(mappedBy = "contractorsOffer", cascade = CascadeType.ALL)
+    private Set<Contractors> contractorsOffer;
 
 }

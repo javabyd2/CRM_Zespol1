@@ -7,10 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
 
 @Data
@@ -36,4 +38,7 @@ public class Task {
     private String description;
     private Timestamp dateCreated;
     private Timestamp dateModified;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Contacts contactsTask;
 }
