@@ -22,8 +22,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form th:action="@{/addNewPhoneToTasks}" method="post" th:object="${task}" class="form-horizontal"
-                  role="form">
+            <form th:action="@{/addNewTask}" method="post" th:object="${task}" class="form-horizontal"
+                  role="form" accept-charset="utf-8">
                 <h2>New Note Form</h2>
                 <div class="form-group">
                     <div class="col-sm-9">
@@ -42,6 +42,15 @@
                             <option th:value="phone">Phone</option>
                             <option th:value="meeting">Meeting</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"
+                               class="validation-message"></label>
+                        <input type="date" th:field="*{startDate}" placeholder="Start Date"
+                               class="form-control"/>
                     </div>
                 </div>
 

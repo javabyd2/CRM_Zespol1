@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Builder
@@ -29,7 +30,7 @@ public class Task {
     private Long id;
 
     private String subject;
-    private Timestamp startDate;
+    private String startDate;
     private Timestamp dueDate;
     private String priority;
     private String status;
