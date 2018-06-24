@@ -21,6 +21,7 @@
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
+                            <th>Date created</th>
                             <th>Name</th>
                             <th>Industry</th>
                             <th>Address</th>
@@ -28,6 +29,7 @@
                         </tr>
                         </thead>
                         <tr th:each="contractor : ${contractorsList}">
+                            <td th:text="${contractor.getDateCreated()}"></td>
                             <td th:text="${contractor.getName()}"></td>
                             <td th:text="${contractor.getIndustry()}"></td>
                             <td>

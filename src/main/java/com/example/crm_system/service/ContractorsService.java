@@ -5,6 +5,7 @@ import com.example.crm_system.repository.ContractorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class ContractorsService {
     }
 
     public void save (Contractors contractors) {
+        contractors.setDateCreated(new Timestamp(System.currentTimeMillis()));
         contractorsRepository.save(contractors);
     }
 
@@ -38,6 +40,7 @@ public class ContractorsService {
         toBeEdited.setAddress(contractors.getAddress());
         toBeEdited.setEmail(contractors.getEmail());
         toBeEdited.setPhone(contractors.getPhone());
+        toBeEdited.setDateModified(new Timestamp(System.currentTimeMillis()));
         save(toBeEdited);
     }
 }
