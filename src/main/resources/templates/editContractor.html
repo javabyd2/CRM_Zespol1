@@ -31,7 +31,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr><td th:text="${contractor.getName()}"></td></tr>
+                                <tr><td th:text="${contractor.getName()}?:'(no name specified)'"></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -46,7 +46,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr><td th:text="${contractor.getIndustry()}"></td></tr>
+                                <tr><td th:text="${contractor.getIndustry()}?:'(no industry specified)'"></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -61,7 +61,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr><td th:text="${contractor.getType()}"></td></tr>
+                                <tr><td th:text="${contractor.getType()}?:'(no type specified)'"></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -112,7 +112,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr><td th:text="${contractor.getAlternatePhone()}"></td></tr>
+                                <tr><td th:text="${contractor.getAlternatePhone()}?:'(no phone specified)'"></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -168,7 +168,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr><td th:text="${contractor.getFax()}"></td></tr>
+                                <tr><td th:text="${contractor.getFax()}?:'(no fax specified)'"></td></tr>
                                 </tbody>
                             </table>
                         </div>
