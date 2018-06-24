@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @RestController
@@ -46,37 +47,14 @@ public class CalendarController {
 
         return e;
     }
-    @PostMapping("/api/events/move")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @Transactional
-    Event moveEvent(@RequestBody EventMoveParams params) {
 
-        Event e = er.findOne(params.id);
-        e.setStart(params.start);
-        e.setEnd(params.end);
-        er.save(e);
-
-        return e;
-    }
-
-    @PostMapping("/api/events/setColor")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @Transactional
-    Event setColor(@RequestBody SetColorParams params) {
-
-        Event e = er.findOne(params.id);
-        e.setColor(params.color);
-        er.save(e);
-
-        return e;
-    }
 
     @PostMapping("/api/events/delete")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
     EventDeleteResponse deleteEvent(@RequestBody EventDeleteParams params) {
 
-        er.delete(params.id);
+        er.deleteById(params.id);
 
         return new EventDeleteResponse() {{
             message = "Deleted";
