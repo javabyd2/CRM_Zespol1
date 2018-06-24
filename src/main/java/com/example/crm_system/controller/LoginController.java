@@ -2,6 +2,7 @@ package com.example.crm_system.controller;
 
 import javax.validation.Valid;
 
+import com.example.crm_system.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,6 +67,7 @@ public class LoginController {
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");
+        modelAndView.addObject("note", new Note());
         return modelAndView;
     }
 }

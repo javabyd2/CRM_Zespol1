@@ -19,27 +19,48 @@
 </head>
 <body>
 
-
-<table class="table table-striped">
-
-    <tr>
-        <thead>
-        <th scope="col">Tytuł</th>
-        <th scope="col">Priorytet</th>
-        <th scope="col">Typ</th>
-        <th scope="col">Opis</th>
-        </thead>
-    </tr>
-    <tbody>
-    <tr th:each="tasks : ${taskList}">
-        <td th:text="${tasks.getSubject()}"></td>
-        <td th:text="${tasks.getPriority()}"></td>
-        <td th:text="${tasks.getType()}"></td>
-        <td th:text="${tasks.getDescription()}"></td>
-    </tr>
-    </tbody>
-
-</table>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="#" th:action="@{showScheduledTasks}" method="get" class="form-horizontal"
+                  role="form" accept-charset="utf-8">
+                <h2>Tasks List</h2>
+                <div class="form-group">
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Date created</th>
+                            <th>Priority</th>
+                            <th>Start Date</th>
+                            <th>Typ</th>
+                            <th>Subject</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="task : ${taskList}">
+                            <td th:text="${task.getDateCreated()}"></td>
+                            <td th:text="${task.getPriority()}"></td>
+                            <td th:text="${task.getStartDate()}"></td>
+                            <td th:text="${task.getType()}"></td>
+                            <td th:text="${task.getSubject()}"></td>
+                            <td>
+                                <p th:text="${task.getDescription()}"></p>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{'/showScheduledTasks/{id}'(id=${task.id})}" th:method="delete">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" id="submitButton" class="btn btn-primary btn-block">Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <span style="color:red" th:utext="${successMessage}"></span>
+</div>
 </body>
 </html>

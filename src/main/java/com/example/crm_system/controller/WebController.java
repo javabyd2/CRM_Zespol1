@@ -62,7 +62,7 @@ public class WebController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/home")
+    @GetMapping(value = "/search")
     public String search(@RequestParam(value = "search", required = false) String q, Model model) {
         List<Contractors> searchResults = null;
         try {
@@ -98,25 +98,11 @@ public class WebController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/addNote")
-    public ModelAndView addNote() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("note", new Note());
-        modelAndView.setViewName("addNote");
-        return modelAndView;
-    }
-
-    @PostMapping(value = "addNote")
-    public ModelAndView saveNote(Note note, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("addNote");
-        } else {
-            noteService.saveNote(note);
-            modelAndView.addObject("successMessage", "New note added");
-        }
-        modelAndView.setViewName("addNote");
-        return modelAndView;
+    @PostMapping(value = "/addNoteHome")
+    public String addNewContractors(@ModelAttribute("notes") Note notes, RedirectAttributes redirectAttributes) {
+        noteService.saveNote(notes);
+        redirectAttributes.addFlashAttribute("successMessage", "Dodano pomyślnie notatkę");
+        return "redirect:/admin/home/";
     }
 
     @GetMapping(value = "/notes")
@@ -142,27 +128,33 @@ public class WebController {
         return modelAndView;
     }
 
+    @DeleteMapping(value = "/showScheduledTasks/{id}")
+    public String deleteTask(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        taskService.deleteTask(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Task deleted");
+        return "redirect:/showScheduledTasks";
+    }
 
-    @GetMapping(value = "/addNewPhoneToTasks")
+    @GetMapping(value = "/addNewTask")
     public ModelAndView addNewPhoneToTasks() {
 
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("task", new Task());
-        modelAndView.setViewName("addNewPhoneToTasks");
+        modelAndView.setViewName("addNewTask");
         return modelAndView;
     }
 
-    @PostMapping(value = "addNewPhoneToTasks")
+    @PostMapping(value = "addNewTask")
     public ModelAndView saveNewPhoneToTasks(Task task, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("addNewPhoneToTasks");
+            modelAndView.setViewName("addNewTask");
         } else {
             taskService.saveTask(task);
             modelAndView.addObject("successMessage", "New phone to tasks added");
         }
-        modelAndView.setViewName("addNewPhoneToTasks");
+        modelAndView.setViewName("addNewTask");
         return modelAndView;
     }
 }

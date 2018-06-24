@@ -5,6 +5,7 @@ import com.example.crm_system.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -18,6 +19,7 @@ public class TaskService {
     }
 
     public Task saveTask(Task task) {
+        task.setDateCreated(new Timestamp(System.currentTimeMillis()));
         return taskRepository.save(task);
     }
 
@@ -25,7 +27,11 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task getNoteById(Long id){
+    public Task getTasksById(Long id){
         return taskRepository.findById(id).get();
+    }
+
+    public void deleteTask(Long id){
+        taskRepository.delete(getTasksById(id));
     }
 }
