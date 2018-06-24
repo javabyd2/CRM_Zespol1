@@ -165,4 +165,19 @@ public class WebController {
         modelAndView.setViewName("addNewPhoneToTasks");
         return modelAndView;
     }
+
+    @GetMapping(value = "/contractors")
+    public ModelAndView contractors() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("contractorsList", contractorsService.getContractors());
+        modelAndView.setViewName("contractors");
+        return modelAndView;
+    }
+
+    @DeleteMapping(value = "/contractors/{id}")
+    public String deleteContractor(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        contractorsService.deleteContractor(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Contractor deleted");
+        return "redirect:/contractors";
+    }
 }

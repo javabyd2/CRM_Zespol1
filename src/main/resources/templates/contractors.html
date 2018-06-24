@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="#" th:action="@{contractors}" method="get" class="form-horizontal"
+                  role="form">
+                <h2>Contractors List</h2>
+                <div class="form-group">
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Industry</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="contractor : ${contractorsList}">
+                            <td th:text="${contractor.getName()}"></td>
+                            <td th:text="${contractor.getIndustry()}"></td>
+                            <td>
+                                <p th:text="${contractor.getAddress()}"></p>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{'/contractors/{id}'(id=${contractor.id})}" th:method="delete">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" id="submitButton" class="btn btn-primary btn-block">Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <span style="color:red" th:utext="${successMessage}"></span>
+</div>
+</body>
+</html>

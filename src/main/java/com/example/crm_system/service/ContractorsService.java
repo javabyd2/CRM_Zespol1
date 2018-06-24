@@ -22,8 +22,8 @@ public class ContractorsService {
         return contractorsRepository.findAll();
     }
 
-    public Optional<Contractors> getContractorsById(Long id) {
-        return contractorsRepository.findById(id);
+    public Contractors getContractorsById(Long id) {
+        return contractorsRepository.findById(id).get();
     }
 
     public void updateContractor(Contractors contractors){
@@ -33,5 +33,9 @@ public class ContractorsService {
 
     public Contractors save (Contractors contractors) {
         return contractorsRepository.save(contractors);
+    }
+
+    public void deleteContractor(Long id){
+        contractorsRepository.delete(getContractorsById(id));
     }
 }
