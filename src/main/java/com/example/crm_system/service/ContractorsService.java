@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ContractorsService {
@@ -26,11 +25,19 @@ public class ContractorsService {
         return contractorsRepository.findById(id).get();
     }
 
-    public Contractors save (Contractors contractors) {
-        return contractorsRepository.save(contractors);
+    public void save (Contractors contractors) {
+        contractorsRepository.save(contractors);
     }
 
     public void deleteContractor(Long id){
         contractorsRepository.delete(getContractorsById(id));
+    }
+
+    public void editContractor(Long id, Contractors contractors){
+        Contractors toBeEdited = getContractorsById(id);
+        toBeEdited.setAddress(contractors.getAddress());
+        toBeEdited.setEmail(contractors.getEmail());
+        toBeEdited.setPhone(contractors.getPhone());
+        save(toBeEdited);
     }
 }

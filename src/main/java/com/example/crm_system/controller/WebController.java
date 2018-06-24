@@ -191,11 +191,7 @@ public class WebController {
 
     @PostMapping(value = "/editContractor/{id}")
     public String updateContractor(@PathVariable("id") Long id, Contractors contractors, RedirectAttributes redirectAttributes) {
-        Contractors contractorFromDb = contractorsService.getContractorsById(id);
-        contractorFromDb.setAddress(contractors.getAddress());
-        contractorFromDb.setEmail(contractors.getEmail());
-        contractorFromDb.setPhone(contractors.getPhone());
-        contractorsService.save(contractorFromDb);
+        contractorsService.editContractor(id, contractors);
         redirectAttributes.addFlashAttribute("successMessage", "Contractor edited");
         return "redirect:/contractors";
     }
