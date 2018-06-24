@@ -199,4 +199,34 @@ public class WebController {
         redirectAttributes.addFlashAttribute("successMessage", "Contractor edited");
         return "redirect:/contractors";
     }
+
+    @GetMapping(value = "/users")
+    public ModelAndView users() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("usersList", userService.getUsers());
+        modelAndView.setViewName("users");
+        return modelAndView;
+    }
+
+    @DeleteMapping(value = "/users/{id}")
+    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        userService.deleteUser(id);
+        redirectAttributes.addFlashAttribute("successMessage", "User deleted");
+        return "redirect:/users";
+    }
+
+    @GetMapping(value = "/editUser/{id}")
+    public ModelAndView editUser(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", userService.getUserById(id));
+        modelAndView.setViewName("editUser");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/editUser/{id}")
+    public String updateUser(@PathVariable("id") Long id, User user, RedirectAttributes redirectAttributes) {
+        userService.editUser(id, user);
+        redirectAttributes.addFlashAttribute("successMessage", "User edited");
+        return "redirect:/users";
+    }
 }

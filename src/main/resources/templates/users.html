@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="#" th:action="@{users}" method="get" class="form-horizontal"
+                  role="form">
+                <h2>Users List</h2>
+                <div class="form-group">
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="user : ${usersList}">
+                            <td th:text="${user.getName()}"></td>
+                            <td th:text="${user.getLastName()}"></td>
+                            <td th:text="${user.getEmail()}"></td>
+                            <td>
+                                <form action="#" th:action="@{'/users/{id}'(id=${user.id})}" th:method="delete">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" id="submitButton" class="btn btn-danger">Delete
+                                    </button>
+                                </form>
+                                <p></p>
+                                <form action="#" th:action="@{'/editUser/{id}'(id=${user.id})}" th:method="get">
+                                    <button type="submit" id="editButton" class="btn btn-primary">Edit
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <span style="color:red" th:utext="${successMessage}"></span>
+</div>
+</body>
+</html>
