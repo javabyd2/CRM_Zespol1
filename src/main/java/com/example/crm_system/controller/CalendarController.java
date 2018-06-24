@@ -10,8 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+
 
 @RestController
 public class CalendarController {
@@ -44,7 +46,6 @@ public class CalendarController {
 
         return e;
     }
-
     @PostMapping("/api/events/move")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
@@ -106,6 +107,6 @@ public class CalendarController {
         public Long id;
         public String color;
     }
-
-
 }
+
+
