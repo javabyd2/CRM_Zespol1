@@ -84,10 +84,16 @@ public class WebController {
     }
 
     @PostMapping(value = "addNewContractorsForm")
-    public String addNewContractors(@ModelAttribute("contractors") Contractors contractors, RedirectAttributes redirectAttributes) {
-        contractorsService.save(contractors);
-        redirectAttributes.addFlashAttribute("successMessage", "Dodano pomyślnie");
-        return "redirect:/addNewContractorsForm";
+    public ModelAndView addNewContractors(@Valid Contractors contractors, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("addNewContractorsForm");
+        } else {
+            contractorsService.save(contractors);
+            modelAndView.addObject("successMessage", "Dodano pomyślnie");
+        }
+        modelAndView.setViewName("addNewContractorsForm");
+        return modelAndView;
     }
 
     @GetMapping(value = "/addNewContractorsForm")
