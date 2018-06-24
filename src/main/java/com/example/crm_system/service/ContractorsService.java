@@ -26,11 +26,6 @@ public class ContractorsService {
         return contractorsRepository.findById(id).get();
     }
 
-    public void updateContractor(Contractors contractors){
-        contractorsRepository.updateContractor(contractors.getId(), contractors.getPhone(),
-                contractors.getEmail(), contractors.getAssignedTo());
-    }
-
     public Contractors save (Contractors contractors) {
         return contractorsRepository.save(contractors);
     }

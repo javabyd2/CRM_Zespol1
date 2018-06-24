@@ -180,4 +180,23 @@ public class WebController {
         redirectAttributes.addFlashAttribute("successMessage", "Contractor deleted");
         return "redirect:/contractors";
     }
+
+    @GetMapping(value = "/editContractor/{id}")
+    public ModelAndView editContractor(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("contractor", contractorsService.getContractorsById(id));
+        modelAndView.setViewName("editContractor");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/editContractor/{id}")
+    public String updateContractor(@PathVariable("id") Long id, Contractors contractors, RedirectAttributes redirectAttributes) {
+        Contractors contractorFromDb = contractorsService.getContractorsById(id);
+        contractorFromDb.setAddress(contractors.getAddress());
+        contractorFromDb.setEmail(contractors.getEmail());
+        contractorFromDb.setPhone(contractors.getPhone());
+        contractorsService.save(contractorFromDb);
+        redirectAttributes.addFlashAttribute("successMessage", "Contractor edited");
+        return "redirect:/contractors";
+    }
 }

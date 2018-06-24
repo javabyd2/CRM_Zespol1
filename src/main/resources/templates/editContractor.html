@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Contractor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form autocomplete="off" action="#" th:action="@{'/editContractor/{id}'(id=${contractor.id})}"
+                      th:object="${contractor}" method="post" class="form-horizontal"
+                      role="form">
+
+                    <h2>Edit Contractor Form</h2>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td th:text="${contractor.getName()}"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Industry</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td th:text="${contractor.getIndustry()}"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td th:text="${contractor.getType()}"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Website</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td th:text="${contractor.getWebsite()}?:'(no website specified)'"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Phone</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>
+                                    <label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                                               class="validation-message"></label>
+                                    <input type="text" th:field="*{phone}" placeholder="Phone"
+                                           class="form-control"/>
+                                </td></tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Alternative Phone</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td th:text="${contractor.getAlternatePhone()}"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Address</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>
+                                    <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                                                class="validation-message"></label>
+                                    <input type="text" th:field="*{address}" placeholder="Address"
+                                           class="form-control"/>
+                                </td></tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Email</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>
+                                    <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                                                                class="validation-message"></label>
+                                    <input type="text" th:field="*{email}" placeholder="Email"
+                                           class="form-control"/></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <table>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Fax</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td th:text="${contractor.getFax()}"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary btn-block">Edit contractor</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
