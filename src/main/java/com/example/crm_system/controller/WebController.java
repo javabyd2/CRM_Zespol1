@@ -1,9 +1,6 @@
 package com.example.crm_system.controller;
 
-import com.example.crm_system.model.Contractors;
-import com.example.crm_system.model.Note;
-import com.example.crm_system.model.Task;
-import com.example.crm_system.model.User;
+import com.example.crm_system.model.*;
 import com.example.crm_system.service.*;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +25,19 @@ public class WebController {
     private HibernateSearchService searchService;
     private NoteService noteService;
     private TaskService taskService;
-
+    private ContactsService contactsService;
     private ContractorsService contractorsService;
 
     @Autowired
     public WebController(UserServiceImpl userService, HibernateSearchService searchService,
-                         ContractorsService contractorsService, NoteService noteService, TaskService taskService) {
+                         ContractorsService contractorsService, NoteService noteService,
+                         TaskService taskService, ContactsService contactsService) {
         this.userService = userService;
         this.searchService = searchService;
         this.contractorsService = contractorsService;
         this.noteService = noteService;
         this.taskService = taskService;
+        this.contactsService = contactsService;
     }
 
     @GetMapping(value = "/addUser")
@@ -222,5 +221,35 @@ public class WebController {
         userService.editUser(id, user);
         redirectAttributes.addFlashAttribute("successMessage", "User edited");
         return "redirect:/users";
+    }
+
+    @GetMapping(value = "/contacts")
+    public ModelAndView contacts() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("contactsList", contactsService.getContacts());
+        modelAndView.setViewName("contacts");
+        return modelAndView;
+    }
+
+    @DeleteMapping(value = "/contacts/{id}")
+    public String deleteContact(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        contactsService.deleteContact(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Contact deleted");
+        return "redirect:/contacts";
+    }
+
+    @GetMapping(value = "/editContact/{id}")
+    public ModelAndView editContact(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("contact", contactsService.getContactById(id));
+        modelAndView.setViewName("editContact");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/editContact/{id}")
+    public String updateContact(@PathVariable("id") Long id, Contacts contacts, RedirectAttributes redirectAttributes) {
+        contactsService.editContact(id, contacts);
+        redirectAttributes.addFlashAttribute("successMessage", "Contact edited");
+        return "redirect:/contact";
     }
 }

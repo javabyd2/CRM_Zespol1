@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contacts List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="#" th:action="@{contacts}" method="get" class="form-horizontal"
+                  role="form">
+                <h2>Contacts List</h2>
+                <div class="form-group">
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Contractors</th>
+                            <th>Department</th>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="contact : ${contactsList}">
+                            <td th:text="${contact.getContractorsContacts().getName()}"></td>
+                            <td th:text="${contact.getDepartment()}"></td>
+                            <td th:text="${contact.getTitle()}"></td>
+                            <td th:text="${contact.getTypeOfContact()}"></td>
+                            <td th:text="${contact.getMobile()}"></td>
+                            <td th:text="${contact.getMail()}"></td>
+                            <td>
+                                <form action="#" th:action="@{'/contacts/{id}'(id=${contact.id})}" th:method="delete">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" id="submitButton" class="btn btn-danger">Delete
+                                    </button>
+                                </form>
+                                <p></p>
+                                <form action="#" th:action="@{'/editContact/{id}'(id=${contact.id})}" th:method="get">
+                                    <button type="submit" id="editButton" class="btn btn-primary">Edit
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <span style="color:red" th:utext="${successMessage}"></span>
+</div>
+</body>
+</html>
