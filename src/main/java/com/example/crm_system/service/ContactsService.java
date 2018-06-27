@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @Log
 @Service
@@ -29,27 +30,35 @@ public class ContactsService {
         return contactsRepository.findAll();
     }
 
-    public Contacts getContactById(Long id) {
-        return contactsRepository.findById(id).get();
+    public Optional<Contacts> getContactById(Long id) {
+        return contactsRepository.findById(id);
     }
 
     public void deleteContact(Long id) {
-        contactsRepository.delete(getContactById(id));
-        log.info("Deleting contact with an id: " + id);
+        Optional<Contacts> fromDb = getContactById(id);
+        if(fromDb.isPresent()) {
+            contactsRepository.delete(getContactById(id).get());
+            log.info("Deleting contact with an id: " + id);
+        }
     }
 
-    public void editContact(Long id, Contacts contacts) {
-        Contacts toBeUpdated = getContactById(id);
-        if (!toBeUpdated.getMobile().equals(contacts.getMobile())) {
-            toBeUpdated.setMobile(contacts.getMobile());
-            log.info("Mobile updated to: " + contacts.getMobile());
+    public Contacts editContact(Long id, Contacts contacts) {
+        Optional<Contacts> fromDb = getContactById(id);
+        if (fromDb.isPresent()) {
+            Contacts toBeUpdated = fromDb.get();
+            if (!toBeUpdated.getMobile().equals(contacts.getMobile())) {
+                toBeUpdated.setMobile(contacts.getMobile());
+                log.info("Mobile updated to: " + contacts.getMobile());
+            }
+            if (!toBeUpdated.getMail().equals(contacts.getMail())) {
+                toBeUpdated.setMail(contacts.getMail());
+                log.info("Mail updated to: " + contacts.getMail());
+            }
+            saveContact(toBeUpdated);
+            log.info("Edited contact with an id: " + id);
+            return toBeUpdated;
+        } else {
+            return null;
         }
-        if (!toBeUpdated.getMail().equals(contacts.getMail())) {
-            toBeUpdated.setMail(contacts.getMail());
-            log.info("Mail updated to: " + contacts.getMail());
-        }
-        toBeUpdated.setDataModified(new Timestamp(System.currentTimeMillis()));
-        saveContact(toBeUpdated);
-        log.info("Updated contact with an id: " + id);
     }
 }
