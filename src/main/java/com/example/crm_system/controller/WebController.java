@@ -241,7 +241,7 @@ public class WebController {
     @GetMapping(value = "/editContact/{id}")
     public ModelAndView editContact(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("contact", contactsService.getContactById(id));
+        modelAndView.addObject("contact", contactsService.getContactById(id).get());
         modelAndView.setViewName("editContact");
         return modelAndView;
     }

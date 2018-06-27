@@ -92,6 +92,4 @@ public class UserServiceImplTest {
         userService.editUser(beforeEditedUser.getId(), afterEditUser);
         assertThat(beforeEditedUser.getId()).isNotEqualTo(afterEditUser.getId());
     }
-
-
 }
