@@ -107,7 +107,7 @@ public class WebController {
     public String addNewContractors(@ModelAttribute("notes") Note notes, RedirectAttributes redirectAttributes) {
         noteService.saveNote(notes);
         redirectAttributes.addFlashAttribute("successMessage", "Dodano pomyślnie notatkę");
-        return "redirect:/admin/home/";
+        return "redirect:/notes";
     }
 
     @GetMapping(value = "/notes")
