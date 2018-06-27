@@ -4,6 +4,7 @@ import com.example.crm_system.model.Role;
 import com.example.crm_system.model.User;
 import com.example.crm_system.repository.RoleRepository;
 import com.example.crm_system.repository.UserRepository;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service("userService")
+@Log
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -42,6 +45,7 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
+        log.info("Created new user with an id: " + user.getId());
     }
 
     public List<User> getUsers() {
@@ -49,17 +53,27 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.delete(getUserById(id));
+        if(getUserById(id).isPresent()) {
+            userRepository.delete(getUserById(id).get());
+            log.info("Deleted user with an id: " + id);
+        }
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 
-    public void editUser(Long id, User user){
-        User toBeUpdated = getUserById(id);
-        toBeUpdated.setPassword(user.getPassword());
-        toBeUpdated.setEmail(user.getEmail());
-        saveUser(toBeUpdated);
+    public User editUser(Long id, User user){
+        Optional<User> fromDb = getUserById(id);
+        if(fromDb.isPresent()) {
+            User toBeUpdated = fromDb.get();
+            toBeUpdated.setPassword(user.getPassword());
+            toBeUpdated.setEmail(user.getEmail());
+            saveUser(toBeUpdated);
+            log.info("Edited user with an id: " + id);
+            return toBeUpdated;
+        }else{
+            return null;
+        }
     }
 }

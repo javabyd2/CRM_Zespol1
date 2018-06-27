@@ -1,5 +1,6 @@
 package com.example.crm_system.serviceTests;
 
+import com.example.crm_system.model.Role;
 import com.example.crm_system.model.User;
 import com.example.crm_system.repository.RoleRepository;
 import com.example.crm_system.repository.UserRepository;
@@ -15,6 +16,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,33 +71,27 @@ public class UserServiceImplTest {
         assertThat(user.getRoles().size()).isEqualTo(active);
     }
 
-//    @Test
-//    public void whenValidId_thenUserShouldBeFound(){
-//        Long id = 1L;
-//        User found = userService.getUserById(id);
-//        assertThat(found.getId()).isEqualTo(id);
-//    }
-//
-//    @Test
-//    public void whenEditedOnlyPasswordAndEmailCanBeChanged(){
-//        User beforeEditedUser = new User(1L,
-//                "Adam",
-//                "test@test.pl",
-//                "ToBeEdited",
-//                "Test",
-//                1,
-//                new HashSet<>(Arrays.asList(new Role())));
-//        User afterEditUser = new User(2L,
-//                "Ewa",
-//                "edited@edited.pl",
-//                "Edited",
-//                "Edited",
-//                0,
-//                new HashSet<>(Arrays.asList(new Role())));
-//        userService.editUser(beforeEditedUser.getId(), afterEditUser);
-//
-//        assertThat(beforeEditedUser.getId()).isNotEqualTo(afterEditUser.getId());
-//    }
+    @Test
+    public void whenEditedOnlyPasswordAndEmailCanBeChanged(){
+        User beforeEditedUser = new User(1L,
+                "Adam",
+                "test@test.pl",
+                "ToBeEdited",
+                "Test",
+                1,
+                new HashSet<>(Arrays.asList(new Role())));
+        userService.saveUser(beforeEditedUser);
+        assertThat(beforeEditedUser.getId()).isEqualTo(1L);
+        User afterEditUser = new User(2L,
+                "Ewa",
+                "edited@edited.pl",
+                "Edited",
+                "Edited",
+                0,
+                new HashSet<>(Arrays.asList(new Role())));
+        userService.editUser(beforeEditedUser.getId(), afterEditUser);
+        assertThat(beforeEditedUser.getId()).isNotEqualTo(afterEditUser.getId());
+    }
 
 
 }

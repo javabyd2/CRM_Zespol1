@@ -3,6 +3,7 @@ package com.example.crm_system.service;
 import com.example.crm_system.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -14,7 +15,7 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    User getUserById(Long id);
+    Optional<User> getUserById(Long id);
 
-    void editUser(Long id, User user);
+    User editUser(Long id, User user);
 }

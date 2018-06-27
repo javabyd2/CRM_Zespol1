@@ -211,7 +211,7 @@ public class WebController {
     @GetMapping(value = "/editUser/{id}")
     public ModelAndView editUser(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("user", userService.getUserById(id));
+        modelAndView.addObject("user", userService.getUserById(id).get());
         modelAndView.setViewName("editUser");
         return modelAndView;
     }
@@ -246,10 +246,33 @@ public class WebController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/editContact/{id}")
-    public String updateContact(@PathVariable("id") Long id, Contacts contacts, RedirectAttributes redirectAttributes) {
-        contactsService.editContact(id, contacts);
+    @PostMapping(value = "editContact/{id}")
+    public String updateContact(Contacts contact, @PathVariable("id") Long id,
+                                      RedirectAttributes redirectAttributes) {
+        contactsService.editContact(id, contact);
         redirectAttributes.addFlashAttribute("successMessage", "Contact edited");
-        return "redirect:/contact";
+        return "redirect:/contacts";
+    }
+
+    @GetMapping(value = "/addContact")
+    public ModelAndView addContact() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("contacts", new Contacts());
+        modelAndView.addObject("contractorsList", contractorsService.getContractors());
+        modelAndView.setViewName("addContact");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "addContact")
+    public ModelAndView saveContact(@Valid Contacts contact, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("addContact");
+        } else {
+            contactsService.saveContact(contact);
+            modelAndView.addObject("successMessage", "New contact added");
+        }
+        modelAndView.setViewName("addContact");
+        return modelAndView;
     }
 }
