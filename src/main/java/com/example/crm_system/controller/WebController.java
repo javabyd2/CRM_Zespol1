@@ -248,7 +248,7 @@ public class WebController {
 
     @PostMapping(value = "editContact/{id}")
     public String updateContact(Contacts contact, @PathVariable("id") Long id,
-                                      RedirectAttributes redirectAttributes) {
+                                RedirectAttributes redirectAttributes) {
         contactsService.editContact(id, contact);
         redirectAttributes.addFlashAttribute("successMessage", "Contact edited");
         return "redirect:/contacts";

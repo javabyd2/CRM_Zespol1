@@ -17,24 +17,30 @@
             <form action="#" th:action="@{contractors}" method="get" class="form-horizontal"
                   role="form">
                 <h2>Contractors List</h2>
+                <div class="float-sm-right">
+                    <button type="button" onclick="location.href='contractors/pdf'" class="btn btn-success btn-sm">PDF</button>
+                </div>
+                <br>
                 <div class="form-group">
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
-                            <th>Date created</th>
                             <th>Name</th>
                             <th>Industry</th>
                             <th>Address</th>
+                            <th>Email</th>
+                            <th>Phone</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tr th:each="contractor : ${contractorsList}">
-                            <td th:text="${contractor.getDateCreated()}"></td>
                             <td th:text="${contractor.getName()}"></td>
                             <td th:text="${contractor.getIndustry()}"></td>
                             <td>
                                 <p th:text="${contractor.getAddress()}"></p>
                             </td>
+                            <td th:text="${contractor.getEmail()}"></td>
+                            <td th:text="${contractor.getPhone()}"></td>
                             <td>
                                 <form action="#" th:action="@{'/contractors/{id}'(id=${contractor.id})}" th:method="delete">
                                     <input type="hidden" name="_method" value="delete">
