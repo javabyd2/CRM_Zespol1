@@ -1,0 +1,1 @@
+insert into event (start, end, text) values ('2017-10-02', '2017-10-02', 'Event 1');
