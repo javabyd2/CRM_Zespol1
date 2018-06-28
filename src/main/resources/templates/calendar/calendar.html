@@ -1,13 +1,12 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      lang="pl">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Contractors</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Calendar</title>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="icons/style.css" rel="stylesheet" type="text/css">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
 </head>
 <body>
@@ -40,9 +39,10 @@
 </div>
 
 <!-- DayPilot library -->
-<script src="../../static/js/daypilot/daypilot-all.min.js"></script>
+<script src="../js/daypilot/daypilot-all.min.js"></script>
 <!-- jQuery -->
-<script src="../../static/js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+
 
 
 <script>
@@ -50,7 +50,7 @@
     var nav = new DayPilot.Navigator("nav");
     nav.showMonths = 3;
     nav.skipMonths = 3;
-    nav.selectMode = "month";
+    nav.selectMode = "week";
     nav.onTimeRangeSelected = function(args) {
         dp.startDate = args.day;
         dp.update();
@@ -59,11 +59,11 @@
     nav.init();
 
 
-    var dp = new DayPilot.Month("dp");
-    dp.init();
-    dp.eventEndSpec = "Date";
+    var dp = new DayPilot.Calendar("dp");
+    dp.viewType = "Week";
     dp.onTimeRangeSelected = function (args) {
         DayPilot.Modal.prompt("Create a new event:", "Event").then(function (modal) {
+            var dp = args.control;
             dp.clearSelection();
             if (!modal.result) {
                 return;
@@ -99,7 +99,7 @@
             url: '/api/events/move',
             data: JSON.stringify(params),
             success: function (data) {
-                dp.message("Moved");
+                dp.message("Event moved");
             },
             contentType: "application/json",
             dataType: 'json'
@@ -117,69 +117,42 @@
             url: '/api/events/move',
             data: JSON.stringify(params),
             success: function (data) {
-                dp.message("Resized");
+                dp.message("Event resized");
             },
             contentType: "application/json",
             dataType: 'json'
         });
     };
     dp.onBeforeEventRender = function(args) {
-        args.data.backColor = args.data.color;
+        args.data.barColor = args.data.color;
         args.data.areas = [
-            { top: 4, right: 4, width: 12, height: 14, icon: "icon-triangle-down", visibility: "Visible", action: "ContextMenu", style: "font-size: 12px; background-color: #fff; border: 1px solid #ccc; padding: 2px 2px 0px 2px; cursor:pointer;"}
+            { top: 2, right: 2, icon: "icon-triangle-down", visibility: "Hover", action: "ContextMenu", style: "font-size: 12px; background-color: #f9f9f9; border: 1px solid #ccc; padding: 2px 2px 0px 2px; cursor:pointer;"}
         ];
     };
     dp.contextMenu = new DayPilot.Menu({
         items: [
             {
-                text: "Delete",
-                onClick: function(args) {
-                    var e = args.source;
-                    var params = {
-                        id: e.id()
-                    };
-                    $.ajax({
-                        type: 'POST',
-                        url: '/api/events/delete',
-                        data: JSON.stringify(params),
-                        success: function (data) {
-                            dp.events.remove(e);
-                            dp.message("Deleted");
-                        },
-                        contentType: "application/json",
-                        dataType: 'json'
-                    });
-                }
-            },
-            {
-                text: "-"
-            },
-            {
                 text: "Blue",
                 icon: "icon icon-blue",
-                color: "#a2c4c9",
+                color: "#1066a8",
                 onClick: function(args) { updateColor(args.source, args.item.color); }
             },
             {
                 text: "Green",
                 icon: "icon icon-green",
-                color: "#b6d7a8",
+                color: "#6aa84f",
                 onClick: function(args) { updateColor(args.source, args.item.color); }
             },
             {
                 text: "Yellow",
                 icon: "icon icon-yellow",
-                color: "#ffe599",
+                color: "#f1c232",
                 onClick: function(args) { updateColor(args.source, args.item.color); }
             },
             {
                 text: "Red",
                 icon: "icon icon-red",
-                color: "#ea9999",
-                onClick: function(args) { updateColor(args.source, args.item.color); }
-            },            {
-                text: "Auto",
-                color: "auto",
+                color: "#cc0000",
                 onClick: function(args) { updateColor(args.source, args.item.color); }
             },
 
@@ -202,23 +175,12 @@
             success: function (data) {
                 e.data.color = color;
                 dp.events.update(e);
+                dp.message("Color updated");
             },
             contentType: "application/json",
             dataType: 'json'
         });
     }
-
-    $(document).ready(function() {
-        $("#weekends").click(function() {
-            dp.showWeekend = $("#weekends").is(":checked");
-            dp.update();
-        });
-
-        $("#download").click(function() {
-            var format = $("#format").val();
-            dp.exportAs(format).download();
-        });
-    });
 
 </script>
 
