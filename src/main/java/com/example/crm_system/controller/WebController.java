@@ -61,7 +61,7 @@ public class WebController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/home")
     public String search(@RequestParam(value = "search", required = false) String q, Model model) {
         List<Contractors> searchResults = null;
         try {
