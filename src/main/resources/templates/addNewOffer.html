@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      lang="pl">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Contractors</title>
+    <title>Add New Offer</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -23,15 +22,15 @@
     <h2>Add New Offer</h2>
 </div>
 <div class="container">
-    <form th:action="@{/addOffer}" method="post" th:object="${offer}">
+    <form th:action="@{/addNewOffer}" method="post" th:object="${offer}">
         <label>Offer Number</label>
-        <input type="text" id="offerNumber" name="Offer Number" th:field="*{offer}"
+        <input type="text" id="offerNumber" name="Offer Number" th:field="*{offerNumber}"
                class="form-control"/><br/>
         <label>Contractor Name</label>
-        <input type="text" id="lastName" name="lastName" th:field="*{lastName}"
+        <input type="text" id="lastName" name="lastName" th:field="*{contractorName}"
                class="form-control"/><br/>
         <label>Contractor Adress</label>
-        <input type="text" id="adress" name="adress" th:field="*{adress}"
+        <input type="text" id="adress" name="adress" th:field="*{billingAccountAdress}"
                class="form-control"/><br/>
         <label>Offer content</label>
         <br />
