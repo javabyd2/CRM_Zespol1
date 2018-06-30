@@ -27,17 +27,19 @@ public class WebController {
     private TaskService taskService;
     private ContactsService contactsService;
     private ContractorsService contractorsService;
+    private OfferService offerService;
 
     @Autowired
     public WebController(UserServiceImpl userService, HibernateSearchService searchService,
                          ContractorsService contractorsService, NoteService noteService,
-                         TaskService taskService, ContactsService contactsService) {
+                         TaskService taskService, ContactsService contactsService, OfferService offerService) {
         this.userService = userService;
         this.searchService = searchService;
         this.contractorsService = contractorsService;
         this.noteService = noteService;
         this.taskService = taskService;
         this.contactsService = contactsService;
+        this.offerService = offerService;
     }
 
     @GetMapping(value = "/addUser")
@@ -103,11 +105,35 @@ public class WebController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/addNoteHome")
-    public String addNewContractors(@ModelAttribute("notes") Note notes, RedirectAttributes redirectAttributes) {
+    @GetMapping(value = "/addNote")
+    public ModelAndView addNewNote(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("note", new Note());
+        modelAndView.setViewName("addNote");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/addNote")
+    public String addNewNote(@ModelAttribute("notes") Note notes, RedirectAttributes redirectAttributes) {
+
         noteService.saveNote(notes);
         redirectAttributes.addFlashAttribute("successMessage", "Dodano pomyślnie notatkę");
         return "redirect:/notes";
+    }
+
+    @GetMapping(value = "/addNewOffer")
+    public ModelAndView addNewOffer(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("offer", new Offer());
+        modelAndView.setViewName("addNewOffer");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/addNewOffer")
+    public String addNewOffer(@ModelAttribute("offer") Offer offer, RedirectAttributes redirectAttributes) {
+        offerService.saveOffer(offer);
+        redirectAttributes.addFlashAttribute("successMessage", "Dodano pomyślnie ofertę");
+        return "redirect:/home";
     }
 
     @GetMapping(value = "/notes")
