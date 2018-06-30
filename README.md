@@ -7,5 +7,6 @@ This system allows you to:
 - search through contractors (Hibernate Search)
 - generate lists in pdf (iText),
 - add, move, delete events in calendar (JavaScript/HTML5).
+- register, login (Spring Security)
 
 Java with Lombok, Hibernate and MySQL. Frontend layer built with simple HTML + Thymeleaf.
