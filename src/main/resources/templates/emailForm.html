@@ -1,13 +1,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      lang="pl">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Contractors</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Add New Email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <style>
         .validation-message {
             color: red;
@@ -15,23 +15,48 @@
     </style>
 </head>
 <body>
-
-<div class="jumbotron">
-
-    <h2>Send e-mail</h2>
-</div>
 <div class="container">
-    <form action="mailto:someone@example.com" method="post" enctype="text/plain">
-        Name:<br>
-        <input type="text" name="name"><br>
-        E-mail:<br>
-        <input type="text" name="mail"><br>
-        Comment:<br>
-        <input type="text" name="content" size="50"><br><br>
-        <input type="submit" value="Send">
-        <input type="reset" value="Reset">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:action="@{/emailForm}" method="post" th:object="${email}" class="form-horizontal"
+                  role="form">
+                <h2>New Email Form</h2>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{subject}" placeholder="Subject"
+                               class="form-control"/>
+                    </div>
+                </div>
 
-    </form>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('doKogo')}" th:errors="*{doKogo}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{doKogo}" placeholder="To"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('text')}" th:errors="*{text}"
+                               class="validation-message"></label>
+                        <textarea th:field="*{text}" placeholder="Content"
+                                  class="form-control"rows="4" cols="50"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Send new email</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <span th:utext="${successMessage}"></span>
 </div>
 </body>
 </html>

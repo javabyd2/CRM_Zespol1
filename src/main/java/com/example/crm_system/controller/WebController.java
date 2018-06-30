@@ -28,11 +28,13 @@ public class WebController {
     private ContactsService contactsService;
     private ContractorsService contractorsService;
     private OfferService offerService;
+    private EmailService emailService;
 
     @Autowired
     public WebController(UserServiceImpl userService, HibernateSearchService searchService,
                          ContractorsService contractorsService, NoteService noteService,
-                         TaskService taskService, ContactsService contactsService, OfferService offerService) {
+                         TaskService taskService, ContactsService contactsService,
+                         OfferService offerService, EmailService emailService) {
         this.userService = userService;
         this.searchService = searchService;
         this.contractorsService = contractorsService;
@@ -40,6 +42,7 @@ public class WebController {
         this.taskService = taskService;
         this.contactsService = contactsService;
         this.offerService = offerService;
+        this.emailService = emailService;
     }
 
     @GetMapping(value = "/addUser")
@@ -115,7 +118,6 @@ public class WebController {
 
     @PostMapping(value = "/addNote")
     public String addNewNote(@ModelAttribute("notes") Note notes, RedirectAttributes redirectAttributes) {
-
         noteService.saveNote(notes);
         redirectAttributes.addFlashAttribute("successMessage", "Dodano pomyślnie notatkę");
         return "redirect:/notes";
@@ -133,7 +135,21 @@ public class WebController {
     public String addNewOffer(@ModelAttribute("offer") Offer offer, RedirectAttributes redirectAttributes) {
         offerService.saveOffer(offer);
         redirectAttributes.addFlashAttribute("successMessage", "Dodano pomyślnie ofertę");
-        return "redirect:/home";
+        return "redirect:/offers";
+    }
+
+    @GetMapping(value = "/emailForm")
+    public ModelAndView addNewEmail(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("email", new Email());
+        modelAndView.setViewName("emailForm");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/emailForm")
+    public String sendNewEmail(Email email){
+        emailService.save(email);
+        return "redirect:/admin/home";
     }
 
     @GetMapping(value = "/notes")

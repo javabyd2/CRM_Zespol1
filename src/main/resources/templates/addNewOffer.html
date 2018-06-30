@@ -15,41 +15,69 @@
     </style>
 </head>
 <body>
-
-
-
-<div class="jumbotron">
-    <h2>Add New Offer</h2>
-</div>
 <div class="container">
-    <form th:action="@{/addNewOffer}" method="post" th:object="${offer}">
-        <label>Offer Number</label>
-        <input type="text" id="offerNumber" name="Offer Number" th:field="*{offerNumber}"
-               class="form-control"/><br/>
-        <label>Contractor Name</label>
-        <input type="text" id="lastName" name="lastName" th:field="*{contractorName}"
-               class="form-control"/><br/>
-        <label>Contractor Adress</label>
-        <input type="text" id="adress" name="adress" th:field="*{billingAccountAdress}"
-               class="form-control"/><br/>
-        <label>Offer content</label>
-        <br />
-        <textarea name="Content" cols="100" rows="20">Add offer content</textarea>
-        <br /><br /><br />
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:action="@{/addNewOffer}" method="post" th:object="${offer}" class="form-horizontal"
+                  role="form">
+                <h2>New Offer Form</h2>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('offerNumber')}" th:errors="*{offerNumber}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{offerNumber}" placeholder="Offer Number"
+                               class="form-control"/>
+                    </div>
+                </div>
 
-        <label>Payment term</label></br>
-        <select>
-            <option>7 dni</option>
-            <option>14 dni</option>
-            <option>30 dni</option>
-            <option>60 dni</option>
-        </select><br/><br/><br/>
-        <div class="form-group">
-            <div class="col-sm-9">
-                <button type="submit" class="btn btn-primary btn-block">Add new offer</button>
-            </div><br/><br/><br/>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('contractorName')}" th:errors="*{contractorName}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{contractorName}" placeholder="Contractor Name"
+                                  class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('billingAccountAddress')}" th:errors="*{billingAccountAddress}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{billingAccountAddress}" placeholder="Billing Account Address"
+                                  class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                               class="validation-message"></label>
+                        <textarea th:field="*{description}" placeholder="Offer content"
+                                  class="form-control"rows="4" cols="50"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label>Payment term</label></br>
+                        <select>
+                            <option>7 dni</option>
+                            <option>14 dni</option>
+                            <option>30 dni</option>
+                            <option>60 dni</option>
+                        </select><br/><br/><br/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Add new offer</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+    <span th:utext="${successMessage}"></span>
 </div>
 </body>
 </html>

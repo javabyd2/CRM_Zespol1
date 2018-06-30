@@ -25,9 +25,9 @@ public class Offer {
     private Timestamp validUntil;
     private String description;
     private String billingAccountName;
-    private String billingAccountAdress;
+    private String billingAccountAddress;
     private String shippingAccountName;
-    private String shippingAccountAdress;
+    private String shippingAccountAddress;
     private BigDecimal totalDiscount;
     private BigDecimal discountedSubtotal;
     private BigDecimal totalTax;
