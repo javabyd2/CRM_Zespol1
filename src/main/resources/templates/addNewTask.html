@@ -24,7 +24,7 @@
         <div class="col-md-6 col-md-offset-3">
             <form th:action="@{/addNewTask}" method="post" th:object="${task}" class="form-horizontal"
                   role="form" accept-charset="utf-8">
-                <h2>New Note Form</h2>
+                <h2>Add New Task</h2>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"
